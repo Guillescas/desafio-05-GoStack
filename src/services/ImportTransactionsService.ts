@@ -49,13 +49,12 @@ class ImportTransactionsService {
         title: In(categories),
       },
     });
-
-    const exsistentCategoriesTitles = existentCategories.map(
+    const existentCategoriesTitles = existentCategories.map(
       (category: Category) => category.title,
     );
 
     const addCategoryTitles = categories
-      .filter(category => exsistentCategoriesTitles.includes(category))
+      .filter(category => !existentCategoriesTitles.includes(category))
       .filter((value, index, self) => self.indexOf(value) === index);
 
     const newCategories = categoriesRepository.create(
@@ -86,5 +85,4 @@ class ImportTransactionsService {
     return createdTransactions;
   }
 }
-
 export default ImportTransactionsService;
